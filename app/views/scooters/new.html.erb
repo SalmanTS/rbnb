@@ -1,0 +1,33 @@
+<h1><%= "Current location" %></h1>
+
+<!-- app/views/scooters/new.html.erb -->
+<h1>Add a New Scooter</h1>
+
+<%= simple_form_for @scooter, html: { multipart: true } do |form| %>
+  <% if @scooter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scooter.errors.count, "error") %> prohibited this scooter from being saved:</h2>
+      <ul>
+        <% @scooter.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.input :image, as: :file, label: "Scooter Image" %>
+  </div>
+
+  <div class="field">
+    <%= form.input :description, as: :text, label: "Description" %>
+  </div>
+
+  <div class="field">
+    <%= form.input :price, as: :select, collection: [100, 200, 300, 400, 500], label: "Price" %>
+  </div>
+
+  <div class="actions">
+    <%= form.button :submit, "Add Scooter" %>
+  </div>
+<% end %>
