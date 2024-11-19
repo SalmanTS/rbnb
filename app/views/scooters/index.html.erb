@@ -1,0 +1,12 @@
+<div class="container mt-4">
+<% @scooters.each do |scooter|%>
+  <div>
+    <h3>
+      <%= scooter.model %>
+    </h3>
+    <p>
+      <%= scooter.description %>
+    </p>
+  </div>
+<% end %>
+</div>
