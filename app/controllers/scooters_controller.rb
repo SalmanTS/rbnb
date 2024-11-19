@@ -1,4 +1,9 @@
 class ScootersController < ApplicationController
+  
+  def index
+    @scooters = Scooter.all
+  end
+  
   def new
     @scooter = Scooter.new
   end
