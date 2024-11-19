@@ -24,10 +24,11 @@
   </div>
 
   <div class="field">
-    <%= form.input :price, as: :select, collection: [100, 200, 300, 400, 500], label: "Price" %>
+    <%= form.input :price_per_day, as: :select, collection: [30, 35, 40, 45, 50, 55, 60], label: "Price" %>
   </div>
 
   <div class="actions">
-    <%= form.button :submit, "Add Scooter" %>
+    <%= form.button :submit, "Submit" %>
+    <%= form.button :submit, "Back" %>
   </div>
 <% end %>

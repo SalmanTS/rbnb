@@ -17,4 +17,4 @@ end
 
 
 # config/routes.rb
-resources :scooters, only: [:new, :create]
+# resources :scooters, only: [:new, :create]
