@@ -1,0 +1,37 @@
+<body>
+  <div class="container mt-5">
+
+    <!-- Item Details Section -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Insert scooter name here</h2>
+      </div>
+      <div class="card-body">
+        <p><strong>Description:</strong> includes description, price per day and location </p>
+
+        <p><strong>Total Price:</strong> is calculated based on the period rented</p>
+
+      </div>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="mt-4">
+      <h3>Book this scooter</h3>
+      <%= simple_form_for [@scooter, @booking] do |f| %>
+      <%= f.input :start_date,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+      <% end %>
+
+       <%= simple_form_for [@scooter, @booking] do |f| %>
+      <%= f.input :end_date,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+      <% end %>
+
+
+
+    </div>
+  </div>
+</body>
+</html>
