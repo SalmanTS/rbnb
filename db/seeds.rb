@@ -16,4 +16,4 @@ Scooter.create(model: "UrbanCruise 250", location: "picadilly square, London", d
 Scooter.create(model: "ZoomSwift Z20", location: "picadilly square, London", description: "Portable scooter with quick-fold technology and a powerful motor for daily commutes.", user: User.last, price_per_day: 123)
 Scooter.create(model: "Raptor RX500", location: "picadilly square, London", description: "Heavy-duty electric scooter with dual suspension and an ultra-durable frame for tough rides.", user: User.last, price_per_day: 99)
 Scooter.create(model: "LiteScoot L30", location: "picadilly square, London", description: "Eco-friendly scooter with a lightweight design and a long-lasting battery for up to 50 km of travel.", user: User.last, price_per_day: 23)
-Scooter.create(model: "NovaRide NX", location: "picadilly square, London", description: "Futuristic scooter", user: User.last, price: 234)
+Scooter.create(model: "NovaRide NX", location: "picadilly square, London", description: "Futuristic scooter", user: User.last, price_per_day: 234)
