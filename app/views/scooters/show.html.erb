@@ -1,20 +1,20 @@
 <body>
-  <div class="container mt-5">
+  <div class="container mt-5 d-flex flex-column">
 <!-- Description -->
     <div class="scooter">
       <div class="scooter-header">
         <h2><%=@scooter.model%></h2>
       </div>
       <div class="scooter-body">
-        <p><strong>Description:</strong> description </p>
-        <p><strong>Location:</strong> location </p>
-        <p><strong>Price:</strong> price</p>
+        <p><strong>Description:</strong> <%=@scooter.description%> </p>
+        <p><strong>Location:</strong> <%=@scooter.location%> </p>
+        <p><strong>Price:</strong> <%=@scooter.price_per_day%>€</p>
       </div>
     </div>
 
     <!-- Calendar -->
     <div class="mt-4">
-      <h3>Book this scooter</h3>
+      <h4>Book this scooter</h4>
         <%= simple_form_for [@scooter, @booking] do |f| %>
           <%= f.input :start_date,
             as: :string,
@@ -30,19 +30,23 @@
 
 <!-- Total price calculation and display -->
     <div class="price">
-        <p><strong>Duration:</strong> end_date - start_date </p>
-        <p><strong>Total Price:</strong> duration*price</p>
+      <p><strong>Duration:</strong> end_date - start_date </p>
+      <p><strong>Total Price:</strong> duration*price</p>
+    </div>
+
+      <!-- Buttons -->
+    <div class=buttons>
+
+      <div class=book-back>
+        <%=button_to 'Go back'%>
       </div>
+
+      <div class=book-button>
+        <%=button_to 'Book'%>
+      </div>
+
     </div>
 
-<!-- Buttons -->
-    <div class=book-back>
-      <%=button_to 'Go back'%>
     </div>
-
-    <div class=book-button>
-      <%=button_to 'Book'%>
-    </div>
-  </div>
 </body>
 </html>
