@@ -16,9 +16,10 @@ class ScootersController < ApplicationController
 
   def create
     @scooter = Scooter.new(scooter_params)
+    @scooter.user = current_user
 
     if @scooter.save
-      redirect_to scooters_path, notice: 'Scooter added successfully.'
+      redirect_to scooters_my_scooters_path, notice: 'Scooter added successfully.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,6 +33,6 @@ class ScootersController < ApplicationController
   private
 
   def scooter_params
-    params.require(:scooter).permit(:description, :price_per_day, images: [])
+    params.require(:scooter).permit(:model, :description, :price_per_day, images: [])
   end
 end

@@ -6,4 +6,6 @@ class Scooter < ApplicationRecord
 
   validates :description, presence: true
   validates :price_per_day, presence: true
+  validates :model, presence: true
+  validates :images, presence: true
 end
