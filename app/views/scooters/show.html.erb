@@ -1,36 +1,47 @@
 <body>
   <div class="container mt-5">
-
-    <!-- Item Details Section -->
-    <div class="card">
-      <div class="card-header">
+<!-- Description -->
+    <div class="scooter">
+      <div class="scooter-header">
         <h2><%=@scooter.model%></h2>
       </div>
-      <div class="card-body">
-        <p><strong>Description:</strong> includes description, price per day and location </p>
-
-        <p><strong>Total Price:</strong> is calculated based on the period rented</p>
-
+      <div class="scooter-body">
+        <p><strong>Description:</strong> description </p>
+        <p><strong>Location:</strong> location </p>
+        <p><strong>Price:</strong> price</p>
       </div>
     </div>
 
-    <!-- Booking Form -->
+    <!-- Calendar -->
     <div class="mt-4">
       <h3>Book this scooter</h3>
-      <%= simple_form_for [@scooter, @booking] do |f| %>
-      <%= f.input :start_date,
+        <%= simple_form_for [@scooter, @booking] do |f| %>
+          <%= f.input :start_date,
             as: :string,
             input_html: { data: { controller: "datepicker" } } %>
-      <% end %>
+        <% end %>
 
-       <%= simple_form_for [@scooter, @booking] do |f| %>
-      <%= f.input :end_date,
+        <%= simple_form_for [@scooter, @booking] do |f| %>
+          <%= f.input :end_date,
             as: :string,
             input_html: { data: { controller: "datepicker" } } %>
-      <% end %>
+        <% end %>
+    </div>
 
+<!-- Total price calculation and display -->
+    <div class="price">
+        <p><strong>Duration:</strong> end_date - start_date </p>
+        <p><strong>Total Price:</strong> duration*price</p>
+      </div>
+    </div>
 
+<!-- Buttons -->
+    <div class=book-back>
+      <%=button_to 'Go back'%>
+    </div>
 
+    <div class=book-button>
+      <%=button_to 'Book'%>
     </div>
   </div>
 </body>
