@@ -4,6 +4,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :profile_picture, as: :file, label: "profile picture" %>
     <%= f.input :first_name%>
     <%= f.input :last_name%>
     <%= f.input :email,
