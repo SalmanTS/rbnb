@@ -1,5 +1,5 @@
 class ScootersController < ApplicationController
-  
+  skip_before_action :authenticate_user!, only: :index
   def index
     @scooters = Scooter.all
   end
@@ -8,7 +8,7 @@ class ScootersController < ApplicationController
     @scooter = Scooter.find(params[:id])
     @booking = Booking.new
   end
-  
+
   def new
     @scooter = Scooter.new
   end
