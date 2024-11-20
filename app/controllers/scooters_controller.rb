@@ -1,5 +1,5 @@
 class ScootersController < ApplicationController
-  
+
   def index
     @scooters = Scooter.all
   end
@@ -8,7 +8,7 @@ class ScootersController < ApplicationController
     @scooter = Scooter.find(params[:id])
     @booking = Booking.new
   end
-  
+
   def new
     @scooter = Scooter.new
   end
@@ -22,6 +22,11 @@ class ScootersController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def my_scooters
+    @scooters = current_user.scooters
+  end
+
 
   private
 
