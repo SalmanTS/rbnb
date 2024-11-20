@@ -1,4 +1,5 @@
 class ScootersController < ApplicationController
+
   skip_before_action :authenticate_user!, only: :index
   def index
     @scooters = Scooter.all
@@ -22,6 +23,11 @@ class ScootersController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def my_scooters
+    @scooters = current_user.scooters
+  end
+
 
   private
 

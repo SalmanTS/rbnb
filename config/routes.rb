@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :bookings, only: :destroy
   # Defines the root path route ("/")
   # root "posts#index"
+  get "scooters/my_scooters" , to: "scooters#my_scooters"
 end
 
 
