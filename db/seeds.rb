@@ -7,10 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require "open-uri"
 
-User.destroy_all
 Scooter.destroy_all
-User.create(first_name: "pedro", last_name: "pan", email: "test@test.test", password: "123456")
+User.destroy_all
+file = URI.parse("https://www.smilecreations4u.com/blog/wp-content/uploads/AdobeStock_118630870.jpeg").open
+user = User.new(first_name: "pedro", last_name: "pan", email: "test@test.test", password: "123456")
+user.profile_picture.attach(io: file, filename: "pedro.jpeg", content_type: "image/jpeg")
+user.save
 Scooter.create(model: "Velocity V200",location: "picadilly square, London", description: "Lightweight electric scooter with a top speed of 25 km/h and a range of 40 km, perfect for urban commuting.", user: User.last, price_per_day: 122)
 Scooter.create(model: "EcoRide X1", location: "picadilly square, London", description: "Foldable e-scooter with an extended battery life of 60 km and a sleek aluminum frame.", user: User.last, price_per_day: 200)
 Scooter.create(model: "Thunderbolt T5", location: "picadilly square, London", description: "High-performance scooter with off-road tires and a powerful 500W motor for rugged terrains.", user: User.last, price_per_day: 50)
