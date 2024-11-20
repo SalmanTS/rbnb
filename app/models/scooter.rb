@@ -1,7 +1,7 @@
 class Scooter < ApplicationRecord
   belongs_to :user
   has_many :bookings
-  has_one_attached :image
+  has_many_attached :images
 
 
   validates :description, presence: true
