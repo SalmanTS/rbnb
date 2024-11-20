@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="field">
-    <%= form.input :image, as: :file, label: "Scooter Image" %>
+    <%= form.input :images, as: :file, label: "Scooter Image", input_html: { multiple: true } %>
   </div>
 
   <div class="field">

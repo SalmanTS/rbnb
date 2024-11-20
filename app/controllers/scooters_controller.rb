@@ -26,7 +26,6 @@ class ScootersController < ApplicationController
   private
 
   def scooter_params
-    params.require(:scooter).permit(:description, :price_per_day, :image)
+    params.require(:scooter).permit(:description, :price_per_day, images: [])
   end
-
 end
