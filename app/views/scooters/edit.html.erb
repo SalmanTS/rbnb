@@ -34,12 +34,32 @@
 
 
 
-  <h2 class="text-center mb-4">Add a New Scooter</h2>
+  <h2 class="text-center mb-4 mt-3">Modify The Scooter</h2>
 
   <%= simple_form_for @scooter, html: { multipart: true, class: 'w-50' } do |form| %>
-    <div class="field mb-3">
-      <%= form.input :images, as: :file, label: "Scooter Images", input_html: { multiple: true } %>
+  <!-- Section pour les images existantes -->
+  <div class="field mb-3">
+    <label>Existing Images</label>
+    <div class="d-flex flex-wrap">
+      <% @scooter.images.each_with_index do |image, index| %>
+        <div class="position-relative m-2">
+          <!-- Affichage de l'image existante -->
+          <%= cl_image_tag image.key, class: "img-thumbnail", style: "width: 150px; height: 150px; object-fit: cover;" %>
+
+          <!-- Option pour supprimer cette image -->
+          <div class="form-check mt-1">
+            <%= check_box_tag "scooter[images_to_remove][]", image.key, false, id: "remove_image_#{index}", class: "form-check-input" %>
+            <label for="remove_image_#{index}" class="form-check-label">Remove</label>
+          </div>
+        </div>
+      <% end %>
     </div>
+  </div>
+
+  <!-- Section pour ajouter de nouvelles images -->
+  <div class="field mb-3">
+    <%= form.input :images, as: :file, label: "Add New Images", input_html: { multiple: true } %>
+  </div>
 
     <div class="field mb-3">
       <%= form.input :model, as: :string, label: "Model" %>
@@ -52,6 +72,7 @@
     <div class="field mb-3">
       <%= form.input :price_per_day, as: :select, collection: [30, 35, 40, 45, 50, 55, 60], label: "Price per day" %>
     </div>
+
 
     <div class="actions d-flex justify-content-between w-100 mb-5">
       <%= link_to "Back", scooters_my_scooters_path, class: "btn btn-secondary" %>
