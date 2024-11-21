@@ -1,10 +1,8 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon navigation-homepage text-dark  ">
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon navigation-homepage text-dark">
   <div class="container-fluid">
-    <%= link_to :root, class: "navbar-brand d-flex" do %>
-      <%# <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
-      <h3 class="my-auto ms-2"> Rollify</h3>
+    <%= link_to root_path, class: "navbar-brand d-flex" do %>
+      <h3 class="my-auto ms-2">Rollify</h3>
     <% end %>
-
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,29 +11,35 @@
     <div class="collapse navbar-collapse d-flex align-items-center" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-          <%= link_to "rent out scooters", new_scooter_path, class: "nav-link me-3" %>
-          </li>
-        <%end%>
           <li class="nav-item">
-            <%= link_to "log in", new_user_session_path, class: "nav-link" if !user_signed_in? %>
+            <%= link_to "Rent out scooters", new_scooter_path, class: "nav-link me-3" %>
           </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Log in", new_user_session_path, class: "nav-link me-2" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+
+        <% if user_signed_in? %>
           <li class="nav-item dropdown me-2">
-          <% if user_signed_in?%>
-            <%=cl_image_tag(current_user.profile_picture.key,class: "avatar dropdown-toggle rounded-circle",id: "navbarDropdown", data: { bs_toggle: "dropdown"}, 'aria-haspopup': true,'aria-expanded': false, style: "width: 40px; height: 40px; border: 1px solid grey", transformation: [
-              {height: 100, width: 100, crop: "fill"},
-              ])%>
-          <% end %>
+            <%= cl_image_tag(current_user.profile_picture.key,
+              class: "avatar dropdown-toggle rounded-circle",
+              id: "navbarDropdown",
+              data: { bs_toggle: "dropdown" },
+              'aria-haspopup': true,
+              'aria-expanded': false,
+              style: "width: 40px; height: 40px; border: 1px solid grey",
+              transformation: [{ height: 100, width: 100, crop: "fill" }]) %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Home", root_path, class: "dropdown-item" %>
-
-              <% if user_signed_in? %>
               <%= link_to "My Scooters", scooters_my_scooters_path, class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
-          <% end %>
-</div>
-
+              <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
+            </div>
           </li>
+        <% end %>
       </ul>
     </div>
   </div>

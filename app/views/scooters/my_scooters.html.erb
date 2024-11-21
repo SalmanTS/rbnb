@@ -1,8 +1,8 @@
-<div class="container mt-5">
+<div class="container mt-3 mb-1">
   <h1 class="text-center mb-4">My Scooters</h1>
   <div class="row d-flex justify-content-center">
     <% @scooters.each do |scooter| %>
-      <%= link_to scooter_path(scooter), class: "card col-12 col-md-4 col-lg-3 my-2 mx-2 p-0 shadow-sm rounded d-flex flex-column text-decoration-none scooter-cards" do %>
+      <%= link_to edit_scooter_path(scooter), class: "card col-3 my-1 mx-2 pt-3 shadow-sm p-3 mb-3 rounded d-flex flex-column scooter-cards text-decoration-none" do %>
         <% if scooter.images.attached? && scooter.images.first %>
           <%= image_tag url_for(scooter.images.first), class: "card-img-top rounded-top" %>
         <% else %>
