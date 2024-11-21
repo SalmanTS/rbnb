@@ -7,6 +7,7 @@ class ScootersController < ApplicationController
   def show
     @scooter = Scooter.find(params[:id])
     @booking = Booking.new
+    @total_price = @booking.total_price
   end
 
   def new
