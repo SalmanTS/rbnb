@@ -4,7 +4,7 @@
     <% @scooters.each do |scooter| %>
       <%= link_to edit_scooter_path(scooter), class: "card col-3 my-1 mx-2 pt-3 shadow-sm p-3 mb-3 rounded d-flex flex-column scooter-cards text-decoration-none" do %>
         <% if scooter.images.attached? && scooter.images.first %>
-          <%= image_tag url_for(scooter.images.first), class: "card-img-top rounded-top" %>
+          <%= image_tag url_for(scooter.images.first), class: "card-img-top rounded card-image-scooter mx-auto" %>
         <% else %>
           <%= image_tag "https://www.shutterstock.com/image-vector/happy-dog-illustration-cool-print-600nw-2278572967.jpg", class: "card-img-top rounded-top" %>
         <% end %>
