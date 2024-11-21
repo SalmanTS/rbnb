@@ -1,0 +1,61 @@
+<div class="container d-flex flex-column align-items-center mt-5">
+  <h1 class="text-center mb-4"><%= "Current Rentings" %></h1>
+
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <%= cl_image_tag @scooter.images.first.key , class: 'd-block w-100 carousel-photo', alt: "first slide" %>
+      </div>
+
+      <% if @scooter.images.count > 1%>
+        <% rest_images = @scooter.images.to_a.drop(1) %>
+        <% rest_images.each_with_index do |image, index|%>
+          <div class="carousel-item">
+            <%= cl_image_tag image.key , class: 'd-block w-100 carousel-photo', alt: "#{index} slide" %>
+          </div>
+        <% end %>
+      <% end %>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" style="background-color: black;"aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" style="background-color: black;"aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+  <h2 class="text-center mb-4">Add a New Scooter</h2>
+
+  <%= simple_form_for @scooter, html: { multipart: true, class: 'w-50' } do |form| %>
+    <div class="field mb-3">
+      <%= form.input :images, as: :file, label: "Scooter Images", input_html: { multiple: true } %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.input :model, as: :string, label: "Model" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.input :description, as: :text, label: "Description" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.input :price_per_day, as: :select, collection: [30, 35, 40, 45, 50, 55, 60], label: "Price per day" %>
+    </div>
+
+    <div class="actions d-flex justify-content-between w-100 mb-5">
+      <%= link_to "Back", scooters_my_scooters_path, class: "btn btn-secondary" %>
+      <%= form.button :submit, "Submit", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>
