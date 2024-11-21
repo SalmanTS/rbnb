@@ -1,8 +1,7 @@
 class ScootersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   def index
-    raise
-    @scooters = Scooter.all.where(scooter.bookings.nil?)
+    @scooters = Scooter.left_joins(:bookings).where(booking_id = nil)
   end
 
   def show
