@@ -10,5 +10,6 @@ class BookingsController < ApplicationController
     else
       render "booking/new", status: :unprocessable_entity
     end
+  @total_price = @scooter.bookings.first.total_price
   end
 end
