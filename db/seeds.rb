@@ -11,16 +11,72 @@ require "open-uri"
 
 Scooter.destroy_all
 User.destroy_all
-file = URI.parse("https://www.smilecreations4u.com/blog/wp-content/uploads/AdobeStock_118630870.jpeg").open
-user = User.new(first_name: "pedro", last_name: "pan", email: "test@test.test", password: "123456")
-user.profile_picture.attach(io: file, filename: "pedro.jpeg", content_type: "image/jpeg")
+file = URI.parse("https://i.pinimg.com/474x/1b/13/9f/1b139fce8698452f621953fc4ee2f95b.jpg").open
+user = User.new(first_name: "Leonidas", last_name: "Zamora", email: "leonidas.zamora.gottwald@gmail.com", password: "123456")
+user.profile_picture.attach(io: file, filename: "nico_omilana.jpeg", content_type: "image/jpeg")
 user.save
-Scooter.create(model: "Velocity V200",location: "picadilly square, London", description: "Lightweight electric scooter with a top speed of 25 km/h and a range of 40 km, perfect for urban commuting.", user: User.last, price_per_day: 122)
-Scooter.create(model: "EcoRide X1", location: "picadilly square, London", description: "Foldable e-scooter with an extended battery life of 60 km and a sleek aluminum frame.", user: User.last, price_per_day: 200)
-Scooter.create(model: "Thunderbolt T5", location: "picadilly square, London", description: "High-performance scooter with off-road tires and a powerful 500W motor for rugged terrains.", user: User.last, price_per_day: 50)
-Scooter.create(model: "GlideMaster G300", location: "picadilly square, London", description: "Compact and efficient scooter designed for smooth rides, featuring a smart display and regenerative braking.", user: User.last, price_per_day: 44)
-Scooter.create(model: "UrbanCruise 250", location: "picadilly square, London", description: "Stylish city scooter with a top speed of 20 km/h, featuring a shock-absorbing deck and LED headlights.", user: User.last, price_per_day: 230)
-Scooter.create(model: "ZoomSwift Z20", location: "picadilly square, London", description: "Portable scooter with quick-fold technology and a powerful motor for daily commutes.", user: User.last, price_per_day: 123)
-Scooter.create(model: "Raptor RX500", location: "picadilly square, London", description: "Heavy-duty electric scooter with dual suspension and an ultra-durable frame for tough rides.", user: User.last, price_per_day: 99)
-Scooter.create(model: "LiteScoot L30", location: "picadilly square, London", description: "Eco-friendly scooter with a lightweight design and a long-lasting battery for up to 50 km of travel.", user: User.last, price_per_day: 23)
-Scooter.create(model: "NovaRide NX", location: "picadilly square, London", description: "Futuristic scooter", user: User.last, price_per_day: 234)
+
+array_of_images = [
+  "https://www.billy.be/cdn/shop/products/Segway-NinebotKickscooterF2PROEfeaturesgallery-5.jpg?v=1682317934&width=533",
+  "https://cdn.webshopapp.com/shops/87774/files/373149646/stuff-certified-ultraleichter-elektrischer-faltbar.jpg",
+  "https://res.cloudinary.com/sharp-consumer-eu/image/fetch/w_3000,f_auto/https://s3.infra.brandquad.io/accounts-media/SHRP/DAM/origin/5be26330-9956-11ec-bfec-52210c5406e7.jpg",
+  "https://fatdaddy.de/wp-content/uploads/2023/11/vsett-10-1-500x500.jpg",
+  "https://m.media-amazon.com/images/I/31qzJodL8jL._AC_SR300,300.jpg",
+  "https://elektroroller-futura.de/11762-thickbox_default/e-scooter-power.jpg",
+  "https://cdn10.plentymarkets.com/mrt54q44tptl/item/images/12526/full/E-Scooter-Elektroroller-L8-STREET-schwarz--2-.jpg",
+  "https://www.billy.be/cdn/shop/products/trottinette-electrique-etwow-gts-gt-sport-48v-10a-2023-noire.jpg?v=1681225421",
+  "https://sxt-scooters.de/cdn/shop/files/ESCMNSTR_SXT_Monster_vorne_rechts.jpg?v=1712906577",
+  "https://api.brusselstimes.com/wp-content/uploads/2022/02/ba6d24cb-image-from-ios-1.jpg"]
+array_of_models = [
+  "Urban Rider",
+  "Eco Commuter",
+  "Swift Cruiser",
+  "Metro Glide",
+  "City Zoomer",
+  "Electric Explorer",
+  "Compact Voyager",
+  "Retro Glide",
+  "Turbo Scooter",
+  "Sleek Drifter"]
+array_of_locations = [
+  "New York, USA",
+  "Berlin, Germany",
+  "Paris, France",
+  "Tokyo, Japan",
+  "Barcelona, Spain",
+  "San Francisco, USA",
+  "Sydney, Australia",
+  "Amsterdam, Netherlands",
+  "Rome, Italy",
+  "Seoul, South Korea"]
+array_of_desctiptions = [
+  "Lightweight and perfect for urban commutes.",
+  "Eco-friendly scooter with a sleek design.",
+  "Built for speed and smooth rides.",
+  "Compact and ideal for busy city streets.",
+  "A fun and zippy ride for everyday use.",
+  "Efficient and powerful electric scooter.",
+  "Portable and versatile for short trips.",
+  "Stylish retro design with modern features.",
+  "High-performance scooter for thrill-seekers.",
+  "Sleek and reliable for daily commuting."
+]
+array_of_prices = [
+  30,
+  35,
+  40,
+  45,
+  50,
+  55,
+  60,
+  40,
+  50,
+  35
+]
+
+array_of_images.each_with_index do |image, index|
+  single_image = URI.parse(image).open
+  scooter = Scooter.new(model: array_of_models[index], location: array_of_locations[index], description: array_of_desctiptions[index], user: User.last, price_per_day: array_of_prices[index])
+  scooter.images.attach(io: single_image, filename: "scooter_image.png", content_type: "image/png")
+  scooter.save!
+end
