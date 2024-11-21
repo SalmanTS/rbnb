@@ -2,9 +2,9 @@
   <h1 class="text-center mb-4">My Scooters</h1>
   <div class="row d-flex justify-content-center">
     <% @scooters.each do |scooter| %>
-      <%= link_to scooter_path(scooter), class: "card col-12 col-md-4 col-lg-3 my-2 mx-2 p-0 shadow-sm rounded d-flex flex-column text-decoration-none scooter-cards" do %>
+      <%= link_to scooter_path(scooter), class: "card col-12 col-md-4 col-lg-3 my-2 mx-2 p-0 shadow-sm bg-white rounded d-flex flex-column text-decoration-none scooter-cards" do %>
         <% if scooter.images.attached? && scooter.images.first %>
-          <%= image_tag url_for(scooter.images.first), class: "card-img-top rounded-top" %>
+          <%= image_tag url_for(scooter.images.first), class: "card-img-top rounded card-image-scooter mx-auto" %>
         <% else %>
           <%= image_tag "https://www.shutterstock.com/image-vector/happy-dog-illustration-cool-print-600nw-2278572967.jpg", class: "card-img-top rounded-top" %>
         <% end %>

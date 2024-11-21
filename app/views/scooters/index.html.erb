@@ -1,9 +1,9 @@
 <div class="container mt-3 mb-1">
   <div class="row d-flex justify-content-center">
   <% @scooters.each do |scooter| %>
-    <%= link_to scooter_path(scooter), class: "card col-3 my-1 mx-2 pt-3 shadow-sm p-3 mb-3 rounded d-flex flex-column scooter-cards text-decoration-none" do %>
+      <%= link_to scooter_path(scooter), class: "card bg-white col-3 my-1 mx-2 pt-3 shadow-sm p-3 mb-3 rounded d-flex flex-column scooter-cards text-decoration-none" do %>
         <% if scooter.images.attached? %>
-          <%= cl_image_tag scooter.images.first.key, class: "card-img-top card-image-scooter rounded" %>
+          <%= cl_image_tag scooter.images.first.key, class: "card-img-top card-image-scooter w-100 rounded mx-auto" %>
           <% else %>
           <%= image_tag "https://www.shutterstock.com/image-vector/happy-dog-illustration-cool-print-600nw-2278572967.jpg", class: "card-img-top rounded" %>
         <% end %>
