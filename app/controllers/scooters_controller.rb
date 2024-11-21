@@ -9,6 +9,16 @@ class ScootersController < ApplicationController
     @booking = Booking.new
   end
 
+  def edit
+    @scooter = Scooter.find(params[:id])
+  end
+
+  def update
+    @scooter = Scooter.find(params[:id])
+    @scooter.update(scooter_params)
+    redirect_to scooters_my_scooters_path, notice: "Scooter edited successfully."
+  end
+
   def new
     @scooter = Scooter.new
   end
