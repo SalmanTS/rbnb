@@ -53,6 +53,13 @@ end
     @scooters = current_user.scooters
   end
 
+  def destroy
+    @scooter = Scooter.find(params[:id])
+    @scooter.destroy
+
+    redirect_to scooters_my_scooters_path, notice: "Scooter deleted successfully"
+  end
+
   private
 
   def scooter_params

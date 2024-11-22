@@ -1,5 +1,6 @@
-<div class="container mt-3 mb-1">
-  <div class="row d-flex justify-content-center">
+<div class="background-image my-0 py-0">
+<div class="container">
+  <div class="row d-flex justify-content-center  pt-4">
   <% @scooters.each do |scooter| %>
       <%= link_to scooter_path(scooter), class: "card bg-white col-3 my-1 mx-2 pt-2 shadow-sm p-1 mb-3 d-flex flex-column scooter-cards text-decoration-none" do %>
         <% if scooter.images.attached? %>
@@ -18,12 +19,13 @@
           <%scooter.bookings.map do |booking|%>
             <% rented.push(1) if(booking.start_date..booking.end_date).to_a.include?(Date.current)%>
           <%end%>
-
-          <% if rented.include?(1) %>
-            <h4 class="text-danger"><strong>rented</strong></h4>
-          <%else%>
-            <h4 class="text-success"><strong>availible</strong></h4>
-          <%end%>
+          <div class="d-flex align-items-end h-100">
+            <% if rented.include?(1) %>
+              <h4 class="text-danger"><strong>Rented</strong></h4>
+            <%else%>
+              <h4 class="text-success"><strong>Available</strong></h4>
+            <%end%>
+          </div>
 
 
             <div class="mt-auto">
@@ -34,4 +36,5 @@
       <% end %>
     <% end %>
   </div>
+</div>
 </div>

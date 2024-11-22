@@ -9,4 +9,15 @@
 
 body{
   background-color: rgb(179, 200, 207);
+  // background-image: url("https://cdn.create.vista.com/downloads/73b67e73-9617-4771-9547-26785d209954_1024.jpeg");
+  // background-size: 100%;
+}
+
+.background-image{
+  background-image: url("https://cdn.create.vista.com/downloads/73b67e73-9617-4771-9547-26785d209954_1024.jpeg");
+  background-size: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
