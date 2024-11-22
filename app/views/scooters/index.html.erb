@@ -1,7 +1,7 @@
 <div class="container mt-3 mb-1">
   <div class="row d-flex justify-content-center">
   <% @scooters.each do |scooter| %>
-      <%= link_to scooter_path(scooter), class: "card bg-white col-3 my-1 mx-2 pt-3 shadow-sm p-3 mb-3 rounded d-flex flex-column scooter-cards text-decoration-none" do %>
+      <%= link_to scooter_path(scooter), class: "card bg-white col-3 my-1 mx-2 pt-2 shadow-sm p-1 mb-3 d-flex flex-column scooter-cards text-decoration-none" do %>
         <% if scooter.images.attached? %>
           <%= cl_image_tag scooter.images.first.key, class: "card-img-top card-image-scooter w-100 rounded mx-auto" %>
           <% else %>
@@ -14,7 +14,19 @@
           <p class="card-text">
             <%= scooter.description %>
           </p>
-          <div class="mt-auto">
+          <%rented=[]%>
+          <%scooter.bookings.map do |booking|%>
+            <% rented.push(1) if(booking.start_date..booking.end_date).to_a.include?(Date.current)%>
+          <%end%>
+
+          <% if rented.include?(1) %>
+            <h4 class="text-danger"><strong>rented</strong></h4>
+          <%else%>
+            <h4 class="text-success"><strong>availible</strong></h4>
+          <%end%>
+
+
+            <div class="mt-auto">
             <p class="mb-1">Location: <%= scooter.location %></p>
             <p class="text-end">$<%= scooter.price_per_day %> / day</p>
           </div>

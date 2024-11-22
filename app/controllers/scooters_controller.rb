@@ -1,13 +1,17 @@
 class ScootersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   def index
-
-    @scooters = Scooter.all.filter do |scooter|
-      scooter.bookings.each do |booking|
-        @booking_span = (booking.start_date..booking.end_date).to_a
-      end
-      @booking_span.exclude?(Date.current)
-    end
+    @scooters = Scooter.all
+    # @scooters = Scooter.all.filter do |scooter|
+    #   scooter.bookings.each do |booking|
+    #     @booking_span = (booking.start_date..booking.end_date).to_a
+    #   end
+    #   if @booking_span.nil?
+    #       true
+    #   else
+    #     @booking_span.exclude?(Date.current)
+    #   end
+    # end
   end
 
   def show
