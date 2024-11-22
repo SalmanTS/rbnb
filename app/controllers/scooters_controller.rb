@@ -15,25 +15,29 @@ class ScootersController < ApplicationController
   end
 
   def update
-    @scooter = Scooter.find(params[:id])
+  @scooter = Scooter.find(params[:id])
 
-    if params[:scooter][:images_to_remove].present?
-    params[:scooter][:images_to_remove].each do |image_key|
-      image = @scooter.images.find_by(key: image_key)
+  # Supprimer les images sélectionnées
+  if params[:scooter][:images_to_remove].present?
+    params[:scooter][:images_to_remove].each do |image_id|
+      image = @scooter.images.find(image_id)
       image.purge if image
     end
   end
 
+  # Mettre à jour les autres attributs
   if @scooter.update(scooter_params)
+    # Ajouter les nouvelles images
     if params[:scooter][:images].present?
       @scooter.images.attach(params[:scooter][:images])
     end
-    redirect_to scooters_my_scooters_path, notice: 'Scooter was successfully updated.'
+    redirect_to scooters_my_scooters_path, notice: "Scooter updated successfully."
   else
     render :edit
   end
+end
 
-  end
+
 
   def new
     @scooter = Scooter.new
