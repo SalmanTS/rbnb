@@ -1,78 +1,75 @@
 <div class="container d-flex flex-column align-items-center mt-5">
   <h1 class="text-center mb-4"><%= "Current Rentings" %></h1>
 
-  <div id="carouselExampleIndicators" class="carousel slide">
-    <div class="carousel-indicators">
+  <!-- Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <% if @scooter.images.attached? %>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <%= cl_image_tag @scooter.images.first.key , class: 'd-block w-100 carousel-photo', alt: "first slide" %>
-      </div>
-
-      <% if @scooter.images.count > 1%>
-        <% rest_images = @scooter.images.to_a.drop(1) %>
-        <% rest_images.each_with_index do |image, index|%>
-          <div class="carousel-item">
-            <%= cl_image_tag image.key , class: 'd-block w-100 carousel-photo', alt: "#{index} slide" %>
-          </div>
-        <% end %>
+      <% @scooter.images.to_a.drop(1).each_with_index do |_, index| %>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index + 1 %>" aria-label="Slide <%= index + 2 %>"></button>
       <% end %>
-
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" style="background-color: black;"aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" style="background-color: black;"aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <% end %>
   </div>
+
+  <div class="carousel-inner">
+    <% if @scooter.images.attached? %>
+      <div id="carousel_item_<%= @scooter.images.first.id %>" class="carousel-item active">
+        <%= cl_image_tag @scooter.images.first.key, class: 'd-block w-100 carousel-photo', alt: "first slide" %>
+      </div>
+      <% @scooter.images.to_a.drop(1).each_with_index do |image, index| %>
+        <div id="carousel_item_<%= image.id %>" class="carousel-item">
+          <%= cl_image_tag image.key, class: 'd-block w-100 carousel-photo', alt: "slide #{index + 2}" %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="carousel-item active">
+        <p class="text-center">No images available</p>
+      </div>
+    <% end %>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: black;"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: black;"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
 
 
   <h2 class="text-center mb-4 mt-3">Modify The Scooter</h2>
-
-  <%= simple_form_for @scooter, html: { multipart: true, class: 'w-50' } do |form| %>
-  <!-- Section pour les images existantes -->
-  <div class="field mb-3">
-    <label>Existing Images</label>
-    <div class="d-flex flex-wrap">
-      <% @scooter.images.each_with_index do |image, index| %>
-        <div class="position-relative m-2">
-          <!-- Affichage de l'image existante -->
-          <%= cl_image_tag image.key, class: "img-thumbnail", style: "width: 150px; height: 150px; object-fit: cover;" %>
-
-          <!-- Option pour supprimer cette image -->
-          <div class="form-check mt-1">
-            <%= check_box_tag "scooter[images_to_remove][]", image.key, false, id: "remove_image_#{index}", class: "form-check-input" %>
-            <label for="remove_image_#{index}" class="form-check-label">Remove</label>
+  <%= simple_form_for @scooter, html: { multipart: true, class: 'w-50', data: { controller: "images" } } do |form| %>
+    <div class="field mb-3">
+      <label>Existing Images</label>
+      <div class="d-flex flex-wrap">
+        <% @scooter.images.each_with_index do |image, index| %>
+          <div id="image_<%= image.id %>" class="position-relative m-2">
+            <%= cl_image_tag image.key, class: "img-thumbnail", style: "width: 150px; height: 150px; object-fit: cover;" %>
+            <button type="button" class="btn btn-danger btn-sm mt-1"
+                    data-action="images#removeImage"
+                    data-image-id="<%= image.id %>">Delete</button>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <!-- Section pour ajouter de nouvelles images -->
-  <div class="field mb-3">
-    <%= form.input :images, as: :file, label: "Add New Images", input_html: { multiple: true } %>
-  </div>
+    <div class="field mb-3">
+      <%= form.input :images, as: :file, label: "Add New Images", input_html: { multiple: true } %>
+    </div>
 
     <div class="field mb-3">
       <%= form.input :model, as: :string, label: "Model" %>
     </div>
-
     <div class="field mb-3">
       <%= form.input :description, as: :text, label: "Description" %>
     </div>
-
     <div class="field mb-3">
       <%= form.input :price_per_day, as: :select, collection: [30, 35, 40, 45, 50, 55, 60], label: "Price per day" %>
     </div>
-
 
     <div class="actions d-flex justify-content-between w-100 mb-5">
       <%= link_to "Back", scooters_my_scooters_path, class: "btn btn-secondary" %>
