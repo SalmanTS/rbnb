@@ -6,6 +6,7 @@ export default class extends Controller {
 static values = {dates: Array}
 
   connect() {
+    console.log(this.element.value)
     console.log(this.datesValue)
     flatpickr(this.element, {
       minDate: "today",
