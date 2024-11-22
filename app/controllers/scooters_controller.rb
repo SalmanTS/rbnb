@@ -2,22 +2,11 @@ class ScootersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   def index
     @scooters = Scooter.all
-    # @scooters = Scooter.all.filter do |scooter|
-    #   scooter.bookings.each do |booking|
-    #     @booking_span = (booking.start_date..booking.end_date).to_a
-    #   end
-    #   if @booking_span.nil?
-    #       true
-    #   else
-    #     @booking_span.exclude?(Date.current)
-    #   end
-    # end
   end
 
   def show
     @scooter = Scooter.find(params[:id])
     @booking = Booking.new
-    # @price_per_day = @booking.scooter.price_per_day
   end
 
   def edit
@@ -25,25 +14,25 @@ class ScootersController < ApplicationController
   end
 
   def update
-    @scooter = Scooter.find(params[:id])
+  @scooter = Scooter.find(params[:id])
 
-    if params[:scooter][:images_to_remove].present?
-    params[:scooter][:images_to_remove].each do |image_key|
-      image = @scooter.images.find_by(key: image_key)
+  if params[:scooter][:images_to_remove].present?
+    params[:scooter][:images_to_remove].each do |image_id|
+      image = @scooter.images.find(image_id)
       image.purge if image
     end
   end
 
+  @scooter.images.attach(params[:scooter][:images]) if params[:scooter][:images].present?
+
   if @scooter.update(scooter_params)
-    if params[:scooter][:images].present?
-      @scooter.images.attach(params[:scooter][:images])
-    end
-    redirect_to scooters_my_scooters_path, notice: 'Scooter was successfully updated.'
+    redirect_to scooters_my_scooters_path, notice: "Scooter successfully updated."
   else
+    flash[:alert] = "Failed to update scooter."
     render :edit
   end
+end
 
-  end
 
   def new
     @scooter = Scooter.new
