@@ -1,13 +1,19 @@
 class ScootersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   def index
-    @scooters = Scooter.left_joins(:bookings).where(booking_id = nil)
+
+    @scooters = Scooter.all.filter do |scooter|
+      scooter.bookings.each do |booking|
+        @booking_span = (booking.start_date..booking.end_date).to_a
+      end
+      @booking_span.exclude?(Date.current)
+    end
   end
 
   def show
     @scooter = Scooter.find(params[:id])
     @booking = Booking.new
-    @total_price = @booking.total_price
+    # @price_per_day = @booking.scooter.price_per_day
   end
 
   def edit

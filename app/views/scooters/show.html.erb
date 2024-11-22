@@ -19,17 +19,20 @@
     <div>
       <h4>Book this scooter</h4>
       <div>
-
-        <% @duration_period = (@scooter.bookings.first.start_date .. @scooter.bookings.first.end_date).to_a%>
-        <% @duration_days = @duration_period.count %>
-        <% @total_price = (@duration_days * @scooter.price_per_day) %>
-
-        <%= simple_form_for [@scooter, @booking] do |f| %>
-          <%= f.input :start_date, as: :string, input_html: { data: { controller: "datepicker", datepicker_dates_value: @duration_period } } %>
+        <% if @scooter.bookings.count >= 1%>
+          <%@duration_period_array = []%>
+          <% @scooter.bookings.each do |booking|%>
+            <% @duration_period_array.push((booking.start_date .. booking.end_date).to_a)%>
+          <% end %>
+          <%total_days = 0%>
+          <% @duration_days = @duration_period_array.last.count %>
+          <% @total_price = (@duration_days * @scooter.price_per_day) %>
+          <%else%>
+          <%@duration_period_array = []%>
         <% end %>
         <%= simple_form_for [@scooter, @booking] do |f| %>
-          <%= f.input :end_date, as: :string, input_html: { data: { controller: "datepicker", datepicker_dates_value: @duration_period } } %>
-
+          <%= f.input :start_date, as: :string, input_html: { data: { controller: "datepicker", datepicker_dates_value: @duration_period_array.flatten } } %>
+          <%= f.input :end_date, as: :string, input_html: { data: { controller: "datepicker", datepicker_dates_value: @duration_period_array.flatten } } %>
           <div class="actions d-flex justify-content-between w-100 mb-5">
             <%= link_to "Back", scooters_path, class: "btn btn-secondary" %>
             <%= f.submit "Book", class: "btn btn-success" %>
@@ -39,10 +42,10 @@
     </div>
 
 <!-- Total price calculation and display -->
-    <div class="price">
-      <p><strong>Duration:</strong> <%= @duration_days %> </p>
-      <p><strong>Total Price:</strong> <%= number_to_currency(@total_price) %></p>
-    </div>
+    <%# <div class="price">
+      <p><strong>Duration:</strong> <%= @duration_days </p>%>
+      <%# <p><strong>Total Price:</strong> <%= number_to_currency(@total_price) </p>%>
+    <%# </div>  %>
 
 <!-- Buttons -->
     <%# <div class="buttons actions d-flex justify-content-between w-100 mb-5"> %>
